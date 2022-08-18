@@ -19,7 +19,9 @@ return new class extends Migration
             $table->string('country_manufacturer')->nullable();
             $table->string('name')->nullable();
             $table->string('path')->nullable();
-            $table->string('category_id');
+            $table->unsignedBigInteger('category_id')->default(1);
+            $table->foreign('category_id')->references('id')->on("categories")->onUpdate('cascade')->onDelete('cascade');
+            $table->string("price")->nullable();
             $table->timestamps();
         });
     }
