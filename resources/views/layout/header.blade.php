@@ -22,15 +22,17 @@
 </div>
 <nav class="ul" id="my-nav">
     <a class="light" href="{{route('root')}}"><i class="fa fa-home"></i>خانه</a>
-    @if(auth()->user()->role == "admin")
-        <a class="light" href="{{route('admin.root')}}"><i class="fa fa-home"></i>پنل ادمین</a>
+    @if(auth()->check())
+        @if(auth()->user()->role == "admin")
+            <a class="light" href="{{route('admin.root')}}"><i class="fa fa-home"></i>پنل ادمین</a>
+        @endif
     @endif
     <a class="light" href="aboutus.html"><i class="fa fa-info-circle"></i>درباره ما</a>
     <a class="light" href="#contac-us"><i class="fa fa-phone-square"></i>ارتباط با ما</a>
 
     <div class="d-d">
         @if(auth()->check())
-            <p style="font-size:11px; margin:0; padding: 0;">nadalikh@gmail.com</p>
+            <p style="font-size:11px; margin:0; padding: 0;">{{auth()->user()->email}}</p>
         @endif
         <button class="d-d-b"> <i style="font-size: 20px;" class="fa fa-user"></i></button>
         <i class="fa fa-angle-down"></i>

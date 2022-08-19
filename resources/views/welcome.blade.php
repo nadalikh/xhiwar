@@ -77,52 +77,23 @@
         </div>
     </div>
     <main>
-        <div class="book" id="">
-            <div class="innerbook">
-                <div class="front">
-                    <img src="{{asset("images/p1.jpg")}}" alt="" loading='lazy'>
-                </div>
-                <div class="back">
-                    <p>عنوان&rlm;:</p>
-                    <p>برند&rlm;:</p>
-                    <p>کشور سازنده&rlm;:</p>
-                    <p>عنوان محصول&rlm;:</p>
-                    <a href='{{route("product", "38848")}}'><i class="fa fa-eye"></i>مشاهده محصول</a>
-                </div>
-            </div>
-        </div>
-        <div class="book" id="">
-            <div class="innerbook">
-                <div class="front">
-                    <img src="{{asset("images/p2.jpg")}}" alt="" loading='lazy'>
-                </div>
-                <div class="back">
-                    <p>عنوان&rlm;:</p>
-                    <p>برند&rlm;:</p>
-                    <p>کشور سازنده&rlm;:</p>
-                    <p>عنوان محصول&rlm;:</p>
-                    <a href='{{route("product", "s3232")}}'><i class="fa fa-eye"></i>مشاهده محصول</a>
+        @foreach($products as $product)
+            <div class="book" id="">
+                <div class="innerbook">
+                    <div class="front">
+                        <img src="{{asset("images/$product->path")}}" alt="" loading='lazy'>
+                    </div>
+                    <div class="back">
+                        <p>عنوان&rlm;:{{$product->name}}</p>
+                        <p>برند&rlm;:{{$product->brand}}</p>
+                        <p>کشور سازنده&rlm;:{{$product->country_manufacturer}}</p>
+                        <p>عنوان محصول&rlm;:{{$product->name}}</p>
+                        <p>قیمت&rlm;:<span style='color:red;'>{{$product->price}}</span>تومان </p>
+                        <a href='{{route("product", $product->id)}}'><i class="fa fa-eye"></i>مشاهده محصول</a>
+                    </div>
                 </div>
             </div>
-        </div>
-{{--        <div class="product" id="">--}}
-{{--            <div class="innerbook">--}}
-{{--                <div class="front">--}}
-{{--                    <img src="" alt="" loading='lazy'>--}}
-{{--                    <h3>عنوان</h3>--}}
-{{--                    <p></p>--}}
-{{--                </div>--}}
-{{--                <div class="back">--}}
-{{--                    <p>عنوان&rlm;:<?=?>--}}
-{{--                    <p>کدشابک&rlm;:<?=  ?></p>--}}
-{{--                    <p>نویسندگان&rlm;:</p>--}}
-{{--                    <p>انتشارات&rlm;:</p>--}}
-{{--                    <p>قیمت&rlm;:<span style="color:red;"></span>تومان  </p>--}}
-{{--                    <p>سال انتشار&rlm;:<span style="color:red;"><?= (strval/*($rows['publish_year'])*/($value->publish_year)) ?></span></p>--}}
-{{--                    <a href='./product.php?isbn='><i class="fa fa-eye"></i>مشاهده کتاب</a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
+        @endforeach
 
     </main>
 </div>
