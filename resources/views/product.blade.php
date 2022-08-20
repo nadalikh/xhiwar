@@ -2,7 +2,6 @@
 @section('content')
     <div class='product'>
         <img src="{{asset('images/'.$product->path)}}">
-        <h1>عنوان&rlm;:{{$product->name}}</h1>
         <p>برند&rlm;:{{$product->brand}}</p>
         <p>کشور سازنده&rlm;:{{$product->country_manufacturer}}</p>
         <p>عنوان محصول&rlm;:{{$product->name}}</p>

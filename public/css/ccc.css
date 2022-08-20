@@ -144,7 +144,7 @@ a{
 
 
  .ul{
-    background-image: linear-gradient(180deg,rgb(209, 208, 205), 85%, transparent);;
+    background-image: linear-gradient(180deg,rgb(195 235 204), 85%, transparent);
     margin: 0;
     padding: 0;
     display: inline-block;
@@ -306,7 +306,7 @@ header{
 #order-counter{
     width: 80%;
     margin: auto;
-    border: 1px solid rgb(182, 161, 255);
+    border: 1px solid rgb(0 48 8);
     box-shadow: 2px 2px 8px black;
     border-radius: 5px;
     height: 150px;
@@ -314,11 +314,11 @@ header{
 }
 #user-counter,
 #order-counter{
-    background-image: linear-gradient(-45deg, rgb(11, 23, 46), 65%, rgb(194, 210, 242));
+    background-image: linear-gradient(-45deg, rgb(0 48 8), 65%, rgb(182 251 184));
 }
 #pro-counter,
 #sold-counter{
-background-image: linear-gradient(45deg, rgb(11, 23, 46), 65%, rgb(194, 210, 242));
+background-image:linear-gradient(45deg, rgb(0 48 8), 65%, rgb(182 251 184));
 }
 
 #user-counter span,
@@ -621,6 +621,7 @@ main{
 }
 .back p{
     text-align: center;
+    margin-top:20px;
 }
 
 
@@ -634,7 +635,7 @@ input:-webkit-autofill:focus{
 }
 
 #contac-us{
-    background-image: linear-gradient(rgb(82 0 0), rgb(32 0 0));
+    background-image: linear-gradient(rgb(0 82 10), rgb(0 32 7));
     display: flex;
     margin-top: 10px;
     height: 63vh;

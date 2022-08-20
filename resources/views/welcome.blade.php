@@ -84,7 +84,6 @@
                         <img src="{{asset("images/$product->path")}}" alt="" loading='lazy'>
                     </div>
                     <div class="back">
-                        <p>عنوان&rlm;:{{$product->name}}</p>
                         <p>برند&rlm;:{{$product->brand}}</p>
                         <p>کشور سازنده&rlm;:{{$product->country_manufacturer}}</p>
                         <p>عنوان محصول&rlm;:{{$product->name}}</p>
