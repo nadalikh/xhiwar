@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\basket;
+use App\Models\product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -50,7 +52,7 @@ class userController extends Controller
         $user->email = $request->email;
         $user->save();
         Auth::login($user);
-        return redirect('root');
+        return redirect('/');
     }
     public function login(Request $request){
         $validator = Validator::make($request->toArray(),$this->loginRules, $this->loginMessages);
@@ -65,5 +67,38 @@ class userController extends Controller
     public function logout(){
         Auth::logout();
         return redirect('/');
+    }
+    public function addToBasket(Request $request){
+        $productId = $request->product_id;
+        $product = product::findOrFail($productId);
+        if(basket::whereUserId(Auth::user()->id)->whereProductId($productId)->first())
+            return redirect('/')->withErrors(['این محصول در سبد خرید شما وجود دارد']);
+        $basket = new basket();
+        $basket->user_id = Auth::user()->id;
+        $basket->product_id = $product->id;
+        $basket->save();
+        return redirect('/')->with('success', "محصول به سبد خرید اضافه شد.");
+    }
+    public function getBaskets(){
+        $baskets = basket::whereUserId(Auth::user()->id)->get();
+        $products = array();
+        foreach($baskets as $basket)
+            $products[] = product::find($basket->product_id);
+        return response()->json($products, 200);
+    }
+
+    public function deleteBasket(Request $request){
+        $product_id = $request->only('productId');
+        $basket = basket::whereProductId($product_id)->first();
+        $basket->delete();
+        return response()->json(['message' => "محصول با موفقیت از سبد خرید حذف شد"], 200);
+    }
+    public function totalPrice(Request $request){
+        $product_count = $request->input();
+        $price = 0;
+        foreach($product_count as $productId => $count)
+            $price += product::findOrFail($productId)->price * $count;
+
+        return response()->json(['totalPrice'=>$price, "email" => Auth::user()->email], 200);
     }
 }

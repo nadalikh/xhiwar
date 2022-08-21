@@ -34,9 +34,17 @@ Route::get('/orders', function(){})->name("orders");
 Route::post('/signin', [\App\Http\Controllers\userController::class, "register"]);
 Route::get('logout', [\App\Http\Controllers\userController::class, "logout"])->name('logout');
 Route::post('login', [\App\Http\Controllers\userController::class, "login"])->name('login');
+Route::middleware('auth')->group(function(){
+
+    Route::post("addToBasket", [\App\Http\Controllers\userController::class, 'addToBasket'])->name('addToBasket');
+    Route::get('baskets',[\App\Http\Controllers\routeController::class,'baskets'])->name('baskets');
+    Route::get('getBaskets',[\App\Http\Controllers\userController::class,'getBaskets'])->name('getBaskets');
+    Route::get('deleteBasket',[\App\Http\Controllers\userController::class,'deleteBasket'])->name('deleteBasket');
+    Route::get('totalPrice',[\App\Http\Controllers\userController::class,'totalPrice'])->name('totalPrice');
+});
+
 //admin route group
 Route::prefix("admin")->middleware('admin')->group(function (){
-
     Route::get('/',[\App\Http\Controllers\routeController::class, "adminRoot"])->name('admin.root');
     Route::get('addProduct', [\App\Http\Controllers\routeController::class, "addProduct"])->name("admin.addProduct");
     Route::post('addProduct',[\App\Http\Controllers\adminController::class, 'createProduct'])->name('admin.createProduct');

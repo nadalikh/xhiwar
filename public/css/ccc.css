@@ -391,7 +391,7 @@ background-image:linear-gradient(45deg, rgb(0 48 8), 65%, rgb(182 251 184));
 }
 .head-content{
     width:100%;
-    background:linear-gradient( rgb(11, 23, 46), 65%, rgb(194, 210, 242));
+    background:linear-gradient( rgb(37 74 12), 65%, rgb(201 242 194));
     border-radius: 5px;
 }
 .head-content p{
@@ -908,7 +908,7 @@ thead{
     border:2px solid rgb(46, 35, 9);
     margin: auto;
     margin-top: 100px;
-    background-image: url(site_images/getting-informaion1.jpg);
+    background-image: url(../site_images/getting-informaion1.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: right;
@@ -994,7 +994,7 @@ thead{
 }
 .product img{
     display: block;
-    width: 30%;
+    /*width: 30%;*/
     margin: 20px auto;
 
 }
