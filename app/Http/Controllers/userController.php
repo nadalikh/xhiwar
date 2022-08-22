@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Shetabit\Multipay\Invoice;
+use Shetabit\Payment\Facade\Payment;
 
 class userController extends Controller
 {
@@ -98,7 +100,19 @@ class userController extends Controller
         $price = 0;
         foreach($product_count as $productId => $count)
             $price += product::findOrFail($productId)->price * $count;
-
         return response()->json(['totalPrice'=>$price, "email" => Auth::user()->email], 200);
+    }
+    public function payment(){
+//        $invoice = new Invoice();
+//        $invoice->amount(1000);
+//        $invoice->detail(['email' => Auth::user()->email]);
+//        $invoice->uuid();
+        return Payment::purchase(
+            (new Invoice)->amount(1000),
+            function($driver, $transactionId) {
+                // Store transactionId in database.
+                // We need the transactionId to verify payment in the future.
+            }
+        )->pay()->render();
     }
 }

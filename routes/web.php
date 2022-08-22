@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function(){
     Route::get('getBaskets',[\App\Http\Controllers\userController::class,'getBaskets'])->name('getBaskets');
     Route::get('deleteBasket',[\App\Http\Controllers\userController::class,'deleteBasket'])->name('deleteBasket');
     Route::get('totalPrice',[\App\Http\Controllers\userController::class,'totalPrice'])->name('totalPrice');
+    Route::get('payment',[\App\Http\Controllers\userController::class,'payment'])->name('payment');
 });
 
 //admin route group

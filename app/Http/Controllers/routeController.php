@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 class routeController extends Controller
 {
     public function root(){
+        $basketCount = null;
         if(Auth::check())
             $basketCount = sizeof(basket::whereUserId(Auth::user()->id)->get());
         $categories = DB::table('categories')->select('name')->groupBy('name')->get();

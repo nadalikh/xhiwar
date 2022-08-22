@@ -20,7 +20,7 @@
         <div class="group">
             <p>جهت سفارش اطلاعات زیر را کامل کنید</p>
         </div>
-        <form action="zarinpal/request.php" method="post">
+        <form action="{{action('\App\Http\Controllers\userController@payment')}}" method="get">
             <div class="p-info">
                 <label for="name">نام و نام خانوادگی&rlm;:</label>
                 <input type="text" name="name" id="name" required>
@@ -41,6 +41,7 @@
                 <label>قیمت نهایی&rlm;(تومان)</label>
                 <input type="text" name="price" id="price" readonly="on" required>
                 <input type="submit" name="online_payment" value="پرداخت آنلاین">
+                <a href="{{route('payment')}}">payment</a>
             </div>
         </form>
     </div>
