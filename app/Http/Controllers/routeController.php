@@ -22,6 +22,14 @@ class routeController extends Controller
     public function adminRoot(){
         return view('admin.layout.master');
     }
+    public function signing_form(){
+        $basketCount = null;
+        if(Auth::check())
+            $basketCount = sizeof(basket::whereUserId(Auth::user()->id)->get());
+        $categories = DB::table('categories')->select('name')->groupBy('name')->get();
+        return view('signin', compact('categories','basketCount'));
+
+    }
     public function addProduct(){
         $categories = DB::table('categories')->select('name')->groupBy('name')->get();
         return view('admin.add', compact("categories"));

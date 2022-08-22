@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::get('/', [\App\Http\Controllers\routeController::class, "root"])->name('root');
-Route::get('/signing_form', function(){ return view('signin');})->name("signing_form");
+Route::get('/signing_form', [\App\Http\Controllers\routeController::class, "signing_form"])->name("signing_form");
 Route::get('/product/{id}', [\App\Http\Controllers\routeController::class, 'showProduct'])->name("product");
 Route::get('/orders', function(){})->name("orders");
 Route::post('/signin', [\App\Http\Controllers\userController::class, "register"]);
