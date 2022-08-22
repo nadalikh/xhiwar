@@ -11,7 +11,7 @@
                 @csrf
                 <div class='wrapper-s'>
                     <label for="e">ایمیل</label>
-                    <input type="email" id="e" name='email' placeholder="email: test@test.com">
+                    <input type="email" id="e" name='email' placeholder="email: test@test.com" value="{{$email}}">
                 </div>
                 <div class='wrapper-s'>
                     <label for="n">نام</label>

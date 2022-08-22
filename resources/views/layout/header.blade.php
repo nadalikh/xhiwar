@@ -29,7 +29,6 @@
             <a class="light" href="{{route('admin.root')}}"><i class="fa fa-home"></i>پنل ادمین</a>
         @endif
     @endif
-    <a class="light" href="aboutus.html"><i class="fa fa-info-circle"></i>درباره ما</a>
     <a class="light" href="#contac-us"><i class="fa fa-phone-square"></i>ارتباط با ما</a>
 
     <div class="d-d">
@@ -51,7 +50,7 @@
         <i class="fa fa-angle-down"></i>
         <div class="d-d-c" style="bottom: -{{sizeof($categories) * 48}}px">
             @foreach($categories as $cat)
-                <a href=''>{{$cat->name}}</a>
+                <a href='{{route('category', $cat->id)}}'>{{$cat->name}}</a>
             @endforeach
         </div>
     </div>
@@ -65,9 +64,9 @@
     <a class="icon" href="javascript:void(0);" style="font-size:15px;"  onclick="myFunction()">&#9776;</a>
 
 
-    <form id="search" action="index.php" method="post">
+    <form id="search" action="{{action('\App\Http\Controllers\routeController@search')}}" method="get">
         <input type="text" placeholder="جست و جوی سریع" name="content">
-        <button type="submit" name="fast-search"><img src="https://img.icons8.com/color/30/000000/search.png"/></button>
+        <button type="submit"><img src="https://img.icons8.com/color/30/000000/search.png"/></button>
     </form>
     <img class='logou' src="{{asset("site_images/logo.png")}}" alt="" loading='lazy'>
 </nav>

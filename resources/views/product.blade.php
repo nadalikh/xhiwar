@@ -11,6 +11,6 @@
             <input type="hidden" name="product_id" value="{{$product->id}}">
             <button type="submit" ><i class="fa fa-shopping-cart"></i><P>افزودن به سبد خرید</P></button>
         </form>
-           <a href=''>#{{$categoryName}}</a>
+           <a href='{{route('category', $category->id)}}'>#{{$category->name}}</a>
     </div>
 @endsection

@@ -49,18 +49,18 @@
                 <p>جستو جوی دقیق</p>
             </div>
             <p>تمام فیلدها را پر کنید</p>
-            <form class="form" action="" method="post">
+            <form class="form" action="{{action('\App\Http\Controllers\routeController@exactSearch')}}" method="get">
                 <div class="wrapper">
                     <label for="e">برند &rlm;:</label>
-                    <input type="text" name="publisher" id="e" required >
+                    <input type="text" name="brand" id="e" required >
                 </div>
                 <div class="wrapper">
                     <label for="n">کشور سازنده&rlm;:</label>
-                    <input type="text" name="author" id="n" required>
+                    <input type="text" name="country_manufacturer" id="n" required>
                 </div>
                 <div class="wrapper">
                     <label for="m">عنوان محصول&rlm;:</label>
-                    <input type="text" name="title" id="m" required>
+                    <input type="text" name="name" id="m" required>
                 </div>
                 <input name='exact_search' class="sub" type="submit" value="جستوجو">
             </form>
@@ -69,10 +69,10 @@
             <div class="head-content">
                 <p>ثبت نام سریع</p>
             </div>
-            <form action="signin.php" method='post' class='wrapper'>
+            <form action="{{action('\App\Http\Controllers\routeController@signing_form')}}" method='get' class='wrapper'>
                 <label for="fast-signin">ایمیل&rlm;:</label>
-                <input id="fast-signin" name="f-s-e" type="email" placeholder="email: test@test.com">
-                <button type="submit" name='f-s'>ثبت نام</button>
+                <input id="fast-signin" name="email" type="email" placeholder="email: test@test.com">
+                <button type="submit" >ثبت نام</button>
             </form>
         </div>
     </div>

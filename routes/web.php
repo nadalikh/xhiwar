@@ -34,6 +34,10 @@ Route::get('/orders', function(){})->name("orders");
 Route::post('/signin', [\App\Http\Controllers\userController::class, "register"]);
 Route::get('logout', [\App\Http\Controllers\userController::class, "logout"])->name('logout');
 Route::post('login', [\App\Http\Controllers\userController::class, "login"])->name('login');
+Route::get('category/{id}', [\App\Http\Controllers\routeController::class, "category"])->name('category');
+Route::get('search', [\App\Http\Controllers\routeController::class, "search"])->name('search');
+Route::get('exactSearch', [\App\Http\Controllers\routeController::class, "exactSearch"])->name('exactSearch');
+
 Route::middleware('auth')->group(function(){
 
     Route::post("addToBasket", [\App\Http\Controllers\userController::class, 'addToBasket'])->name('addToBasket');
@@ -41,8 +45,9 @@ Route::middleware('auth')->group(function(){
     Route::get('getBaskets',[\App\Http\Controllers\userController::class,'getBaskets'])->name('getBaskets');
     Route::get('deleteBasket',[\App\Http\Controllers\userController::class,'deleteBasket'])->name('deleteBasket');
     Route::get('totalPrice',[\App\Http\Controllers\userController::class,'totalPrice'])->name('totalPrice');
+    Route::get('payment',[\App\Http\Controllers\userController::class,'payment'])->name('payment');
+
 });
-Route::get('payment',[\App\Http\Controllers\userController::class,'payment'])->name('payment');
 
 //admin route group
 Route::prefix("admin")->middleware('admin')->group(function (){

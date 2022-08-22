@@ -20,7 +20,8 @@
         <div class="group">
             <p>جهت سفارش اطلاعات زیر را کامل کنید</p>
         </div>
-        <form action="{{action('\App\Http\Controllers\userController@payment')}}" method="get">
+        <form action="{{action('\App\Http\Controllers\userController@payment')}}" method="post">
+            @csrf
             <div class="p-info">
                 <label for="name">نام و نام خانوادگی&rlm;:</label>
                 <input type="text" name="name" id="name" required>
