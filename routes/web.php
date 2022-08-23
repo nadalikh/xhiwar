@@ -30,7 +30,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [\App\Http\Controllers\routeController::class, "root"])->name('root');
 Route::get('/signing_form', [\App\Http\Controllers\routeController::class, "signing_form"])->name("signing_form");
 Route::get('/product/{id}', [\App\Http\Controllers\routeController::class, 'showProduct'])->name("product");
-Route::get('/orders', function(){})->name("orders");
 Route::post('/signin', [\App\Http\Controllers\userController::class, "register"]);
 Route::get('logout', [\App\Http\Controllers\userController::class, "logout"])->name('logout');
 Route::post('login', [\App\Http\Controllers\userController::class, "login"])->name('login');
@@ -45,7 +44,9 @@ Route::middleware('auth')->group(function(){
     Route::get('getBaskets',[\App\Http\Controllers\userController::class,'getBaskets'])->name('getBaskets');
     Route::get('deleteBasket',[\App\Http\Controllers\userController::class,'deleteBasket'])->name('deleteBasket');
     Route::get('totalPrice',[\App\Http\Controllers\userController::class,'totalPrice'])->name('totalPrice');
-    Route::get('payment',[\App\Http\Controllers\userController::class,'payment'])->name('payment');
+    Route::post('payment',[\App\Http\Controllers\userController::class,'payment'])->name('payment');
+    Route::get('callback',[\App\Http\Controllers\routeController::class,'callback'])->name('callback');
+    Route::get('myOrders',[\App\Http\Controllers\routeController::class,'myOrders'])->name('myOrders');
 
 });
 

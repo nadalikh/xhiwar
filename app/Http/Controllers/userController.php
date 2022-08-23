@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\basket;
+use App\Models\order;
 use App\Models\product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Shetabit\Multipay\Invoice;
-use Shetabit\Payment\Facade\Payment;
+use Larabookir\Gateway\Gateway;
 
 class userController extends Controller
 {
@@ -84,8 +84,11 @@ class userController extends Controller
     public function getBaskets(){
         $baskets = basket::whereUserId(Auth::user()->id)->get();
         $products = array();
-        foreach($baskets as $basket)
-            $products[] = product::find($basket->product_id);
+        foreach($baskets as $basket) {
+            $product = product::find($basket->product_id);
+            $product->number = $basket->number;
+            $products[] = $product;
+        }
         return response()->json($products, 200);
     }
 
@@ -98,16 +101,61 @@ class userController extends Controller
     public function totalPrice(Request $request){
         $product_count = $request->input();
         $price = 0;
-        foreach($product_count as $productId => $count)
+        foreach($product_count as $productId => $count) {
             $price += product::findOrFail($productId)->price * $count;
+            $basket = basket::whereUserId(Auth::user()->id)->whereProductId($productId)->first();
+            $basket->number = $count;
+            $basket->update();
+        }
         return response()->json(['totalPrice'=>$price, "email" => Auth::user()->email], 200);
     }
-    public function payment(){
+    public function payment(Request $request){
+        try {
+            $content = $request->validate([
+                'price' =>'required|numeric',
+                'mobile' => 'required|digits:11',
+                'address' => 'required|max:40',
+                'name' => 'required|max:40'
+            ]);
+            $gateway = Gateway::make('zarinpal');
 
-        return Payment::purchase(
-            (new Invoice)->amount(1000),
-            function($driver, $transactionId) {
+            $gateway->setCallback(url('/callback')); // You can also change the callback
+            $gateway->price($content['price']*10)
+                // setShipmentPrice(10) // optional - just for paypal
+                // setProductName("My Product") // optional - just for paypal
+                ->ready();
+            $refId =  $gateway->refId(); // شماره ارجاع بانک
+            $transID = $gateway->transactionId(); // شماره تراکنش
+
+            // در اینجا
+            //  شماره تراکنش  بانک را با توجه به نوع ساختار دیتابیس تان
+            //  در جداول مورد نیاز و بسته به نیاز سیستم تان
+            // ذخیره کنید .
+
+
+            $baskets = basket::whereUserId(Auth::user()->id)->get();
+            $products = array();
+            foreach($baskets as $basket)
+                $products[] = product::find($basket->product_id);
+
+            $order = new order();
+            $order->price = $content['price'];
+            $order->ref_id = $refId;
+            $order->transaction_id = $transID;
+            $order->user_id = Auth::user()->id;
+            $order->address = $content['address'];
+            $order->mobile = $content['mobile'];
+            $order->name = $content['name'];
+            $order->save();
+            foreach ($products as $product) {
+                $basket = basket::whereUserId(Auth::user()->id)->whereProductId($product->id)->first();
+                $order->products()->attach($product, ['number' => $basket->number]);
             }
-        )->pay()->render();
+            return $gateway->redirect();
+
+        } catch (\Exception $e) {
+
+            echo $e->getMessage();
+        }
     }
 }

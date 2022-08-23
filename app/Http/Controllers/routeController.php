@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\basket;
 use App\Models\category;
+use App\Models\order;
 use App\Models\product;
+use App\Models\transaction;
+use App\Models\transactionLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -24,7 +27,8 @@ class routeController extends Controller
         return view('admin.layout.master');
     }
     public function signing_form(Request $request){
-        $email = $request->only('email')['email'];
+
+        $email =($request->email)? $request->only('email')['email']:"";
 
         $basketCount = null;
         if(Auth::check())
@@ -61,7 +65,6 @@ class routeController extends Controller
         $basketCount = null;
         if(Auth::check())
             $basketCount = sizeof(basket::whereUserId(Auth::user()->id)->get());
-//        $categories = DB::table('categories')->select('name')->groupBy('name')->get();
         $categories = category::all();
         return view('welcome', compact('categories','products', 'basketCount'));
     }
@@ -89,4 +92,40 @@ class routeController extends Controller
             $basketCount = sizeof(basket::whereUserId(Auth::user()->id)->get());
         return view('welcome', compact('categories','products', 'basketCount'));
     }
+    public function callback(){
+        try {
+
+            $gateway = \Gateway::verify('zarinpal');
+            $trackingCode = $gateway->trackingCode();
+            $refId = $gateway->refId();
+            $cardNumber = $gateway->cardNumber();
+            basket::whereUserId(Auth::user()->id)->delete();
+            return redirect('/')->with('success', 'پرداخت شما با موفقیت انجام شد');
+//            $gateway->setDescription(Auth::user()->email);
+        } catch (\Larabookir\Gateway\Exceptions\RetryException $e) {
+            echo $e->getMessage() . "<br>";
+        } catch (\Exception $e) {
+
+            // نمایش خطای بانک
+            echo $e->getMessage();
+        }
+    }
+    public function myOrders(){
+        $basketCount = null;
+        if(Auth::check())
+            $basketCount = sizeof(basket::whereUserId(Auth::user()->id)->get());
+        $categories = category::all();
+        $orders = order::whereUserId(Auth::user()->id)->get();
+        foreach ($orders as $order){
+            $transaction = transaction::find($order->transaction_id);
+            $order->tracking_code = $transaction->tracking_code;
+            if($log = transactionLog::whereTransactionId(strval($order->transaction_id))->first())
+                $order->message = $log->result_message;
+            else
+                $order->message = "تنها وارد درگاه شده است.";
+        }
+        return view('myOrders',compact('basketCount', 'orders', 'categories'));
+
+    }
+
 }

@@ -94,7 +94,7 @@ function showProducts(products, email){
         var input = document.createElement("input");
         input.setAttribute('id', 'in-'+products[item].id);
         input.setAttribute('type', 'number');
-        input.setAttribute('value','1');
+        input.setAttribute('value', products[item].number);
         input.setAttribute('min','1');
         td.appendChild(input);
         tbody.appendChild(td);

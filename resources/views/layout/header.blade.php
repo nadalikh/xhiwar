@@ -40,7 +40,7 @@
         <div class="d-d-c">
             <a href="#login" onclick="open_form()">ورود/خروج</a>
             <a href="{{route('signing_form')}}">ثبت نام</a>
-            <a href="{{route('orders', "sdfsd")}}">سفارش های من</a>
+            <a href="{{route('myOrders')}}">سفارش های من</a>
         </div>
     </div>
 

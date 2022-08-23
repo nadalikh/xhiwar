@@ -29,8 +29,6 @@
                 <input type="email" name="email" id="email"  readonly="on" required>
             </div>
             <div class="c-info">
-                <label for="zipcode">کدپستی&rlm;:</label>
-                <input type="text" name="zipcode" id="zipcode" dir="ltr">
                 <label for="mobile">شماره همراه&rlm;:</label>
                 <input type="text" name="mobile" id="mobile" pattern="(09)[0-9]{9}" placeholder="09*********" style="direction: ltr;" required>
             </div>
@@ -40,9 +38,9 @@
             </div>
             <div class="check-f">
                 <label>قیمت نهایی&rlm;(تومان)</label>
-                <input type="text" name="price" id="price" readonly="on" required>
+                <input type="number" name="price" id="price" readonly="on" required>
                 <input type="submit" name="online_payment" value="پرداخت آنلاین">
-                <a href="{{route('payment')}}">payment</a>
+
             </div>
         </form>
     </div>
