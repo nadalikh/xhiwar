@@ -19,7 +19,6 @@ class routeController extends Controller
         $basketCount = null;
         if(Auth::check())
             $basketCount = sizeof(basket::whereUserId(Auth::user()->id)->get());
-//        $categories = DB::table('categories')->select('name')->groupBy('name')->get();
         $categories = category::all();
         $products = product::inRandomOrder()->limit(15)->get();
         return view('welcome', compact('categories','products', 'basketCount'));
@@ -28,27 +27,21 @@ class routeController extends Controller
         return view('admin.layout.master');
     }
     public function signing_form(Request $request){
-
         $email =($request->email)? $request->only('email')['email']:"";
-
         $basketCount = null;
         if(Auth::check())
             $basketCount = sizeof(basket::whereUserId(Auth::user()->id)->get());
-//        $categories = DB::table('categories')->select('name')->groupBy('name')->get();
         $categories = category::all();
         return view('signin', compact('categories','basketCount', 'email'));
 
     }
     public function addProduct(){
-//        $categories = DB::table('categories')->select('name')->groupBy('name')->get();
         $categories = category::all();
-
         return view('admin.add', compact("categories"));
     }
     public function showProduct($productId){
         if(Auth::check())
             $basketCount = sizeof(basket::whereUserId(Auth::user()->id)->get());
-//        $categories = DB::table('categories')->select('name')->groupBy('name')->get();
         $categories = category::all();
         $product = product::findOrFail($productId);
         $category = $product->category()->first();
@@ -95,19 +88,15 @@ class routeController extends Controller
     }
     public function callback(){
         try {
-
             $gateway = \Gateway::verify('zarinpal');
             $trackingCode = $gateway->trackingCode();
             $refId = $gateway->refId();
             $cardNumber = $gateway->cardNumber();
             basket::whereUserId(Auth::user()->id)->delete();
             return redirect('/')->with('success', 'پرداخت شما با موفقیت انجام شد');
-//            $gateway->setDescription(Auth::user()->email);
         } catch (\Larabookir\Gateway\Exceptions\RetryException $e) {
             echo $e->getMessage() . "<br>";
         } catch (\Exception $e) {
-
-            // نمایش خطای بانک
             echo $e->getMessage();
         }
     }

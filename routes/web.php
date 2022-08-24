@@ -12,21 +12,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-//Route::get('/product', function(){
-//    $category = new \App\Models\category();
-//    $category->name = "test cat";
-//    $category->save();
-//    $product = new \App\Models\product();
-//    $product->name = "test product";
-////    $product->save();
-//    $product1 = new \App\Models\product();
-//    $product1->name = "test product";
-////    $product1->save();
-//    $product->category()->associate($category)->save();
-//    $category->products()->saveMany([$product, $product1]);
-//});
-
 Route::get('/', [\App\Http\Controllers\routeController::class, "root"])->name('root');
 Route::get('/signing_form', [\App\Http\Controllers\routeController::class, "signing_form"])->name("signing_form");
 Route::get('/product/{id}', [\App\Http\Controllers\routeController::class, 'showProduct'])->name("product");

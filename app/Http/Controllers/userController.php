@@ -118,21 +118,10 @@ class userController extends Controller
                 'name' => 'required|max:40'
             ]);
             $gateway = Gateway::make('zarinpal');
-
             $gateway->setCallback(url('/callback')); // You can also change the callback
-            $gateway->price($content['price']*10)
-                // setShipmentPrice(10) // optional - just for paypal
-                // setProductName("My Product") // optional - just for paypal
-                ->ready();
+            $gateway->price($content['price']*10)->ready();
             $refId =  $gateway->refId(); // شماره ارجاع بانک
             $transID = $gateway->transactionId(); // شماره تراکنش
-
-            // در اینجا
-            //  شماره تراکنش  بانک را با توجه به نوع ساختار دیتابیس تان
-            //  در جداول مورد نیاز و بسته به نیاز سیستم تان
-            // ذخیره کنید .
-
-
             $baskets = basket::whereUserId(Auth::user()->id)->get();
             $products = array();
             foreach($baskets as $basket)
