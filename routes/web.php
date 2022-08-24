@@ -55,4 +55,6 @@ Route::prefix("admin")->middleware('admin')->group(function (){
     Route::get('/',[\App\Http\Controllers\routeController::class, "adminRoot"])->name('admin.root');
     Route::get('addProduct', [\App\Http\Controllers\routeController::class, "addProduct"])->name("admin.addProduct");
     Route::post('addProduct',[\App\Http\Controllers\adminController::class, 'createProduct'])->name('admin.createProduct');
+    Route::get('manageUser',[\App\Http\Controllers\routeController::class, "manageUser"] )->name('admin.manageUser');
+    Route::get('changeRole',[\App\Http\Controllers\adminController::class, "changeRole"] )->name('admin.changeRole');
 });

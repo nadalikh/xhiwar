@@ -144,7 +144,7 @@ table{
     border: 1px solid black;
     border-collapse: collapse;
     position: absolute;
-    top: 75%;
+    top: 40%;
 }
 th ,td{
     border: 1px solid black;

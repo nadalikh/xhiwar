@@ -158,4 +158,5 @@ class userController extends Controller
             echo $e->getMessage();
         }
     }
+
 }

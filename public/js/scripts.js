@@ -37,32 +37,6 @@ function close_caution(){
 }
 
 
-function addtobasket(isbn, email){
-    var parameter = {isbn:isbn , email:email};
-    if(!email)
-        alert('ابتدا به حساب کاربری خود وارد شوید');
-    else{
-        var http = new XMLHttpRequest();
-        http.onload = function(){
-            if(this.status == "200"){
-                if(this.responseText != '1' && this.responseText != '2')
-                    alert('سفارش به دلیل خطا به سبد خرید اضافه نشد');
-                else if(this.responseText != '2')
-                    alert('سفارش به سبد خرید اضافه شد');
-                else
-                    alert('این محصول قبلا اضافه شده است');
-            }else{
-                alert('سفارش به دلیل خطا به سبد خرید اضافه نشد');
-            }
-        }
-        http.open("POST", 'requests.php');
-        http.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-        http.send('addbasket='+ JSON.stringify(parameter));
-
-        numof_books(email);
-    }
-}
-
 function startOnBP(email) {
     pro = {};
     getBPs(pro)
@@ -118,17 +92,6 @@ function getBPs(pro){
         }).fail(function(){
             swal("عملیات ناموفق ", "ارسال اطلاعات با خطا مواجه شده است", "error")
         });
-        // var http = new XMLHttpRequest();
-        // http.onload = function(){
-        //     if(this.status == '200'){
-        //          pro.response = JSON.parse(this.responseText);
-        //     }
-        // }
-        // http.open("post", "requests.php");
-        // http.setRequestHeader("Content-type","application/json");
-        // http.send("showBP="+email);
-
-
 }
 
 function deletep(email ,productId){
@@ -140,18 +103,6 @@ function deletep(email ,productId){
     });
     $("#"+productId).hide();
 
-
-    // var http = new XMLHttpRequest();
-    // http.onload = function(){
-    //     if(this.status == "200"){
-    //         if(this.responseText == '1')
-    //             document.getElementById(isbn).style.display="none";
-    //             numof_books(email);
-    //     }
-    // }
-    // http.open("post", "requests.php");
-    // http.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-    // http.send("deleteBP="+string);
 }
 
 function cal(){
@@ -178,17 +129,6 @@ function updateNum(pro){
     });
 }
 
-function sumPrice(email){
-    var http = new XMLHttpRequest();
-    http.onload = function(){
-        if(this.status == "200"){
-            openTicket(this.responseText, email);
-        }
-    }
-    http.open("post", "requests.php");
-    http.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-    http.send("sumPrice="+email);
-}
 
 function openTicket(totalPrice, email) {
     document.getElementsByClassName("ticket")[0].style.display ="block";
@@ -200,48 +140,4 @@ function openTicket(totalPrice, email) {
 
 function loaderoff(){
     document.getElementsByClassName("preloader")[0].style.display= "none";
-}
-
-function numof_books(email){
-    var http = new XMLHttpRequest();
-    http.onload = function(){
-        if(this.status == "200"){
-            if(this.responseText != "-1")
-            document.getElementById("book-counter").innerHTML = this.responseText;
-        }
-
-    }
-
-    http.open("POST", "requests.php");
-    http.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-    http.send("basketCount="+email);
-}
-
-function showexactsearch(x){
-    if(x == 0){
-        document.getElementById("exact-search").style.display = "block";
-        var y = document.getElementById("b-e-s");
-        y.setAttribute("onclick", "showexactsearch(1)");
-
-    }else{
-        document.getElementById("exact-search").style.display = "none";
-        var y = document.getElementById("b-e-s");
-        y.setAttribute("onclick", "showexactsearch(0)");
-    }
-}
-
-function session_set(){
-    sessionStorage.setItem('s','true');
-}
-
-function fillEmail(email){
-    x = document.getElementById('e');
-    x.setAttribute('value', email);
-}
-
-function getReadyToResetPass(){
-    document.getElementById('p2').style.display='none';
-    document.getElementById('sub-sign').style.display='none';
-    document.getElementById('sub-reset-pass').style.display='block';
-
 }

@@ -8,6 +8,7 @@ use App\Models\order;
 use App\Models\product;
 use App\Models\transaction;
 use App\Models\transactionLog;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -126,6 +127,10 @@ class routeController extends Controller
         }
         return view('myOrders',compact('basketCount', 'orders', 'categories'));
 
+    }
+    public function manageUser(){
+        $users = User::all();
+        return view('admin.manageUser', compact('users'));
     }
 
 }

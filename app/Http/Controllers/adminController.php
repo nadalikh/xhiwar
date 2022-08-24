@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\category;
 use App\Models\product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -56,5 +57,11 @@ class adminController extends Controller
         $product->price = $request->price;
         $product->category()->associate($category)->save();
         return redirect('/admin/addProduct')->with('success', "اطلاعات محصول با موفقیت ثبت شد");
+    }
+    public function changeRole(Request $request){
+        $userid = $request->only('userId');
+        $user = User::find($userid)->first();
+        $user->role = ($user->role == "admin") ? "customer" : "admin";
+        $user->update();
     }
 }
