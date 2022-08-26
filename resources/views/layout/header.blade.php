@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href='site_images/logo_n.jpeg' type="image/gif" >
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
@@ -98,5 +97,13 @@
 @if(Session::has('success'))
     <script>swal("عملیات موفق", "{{Session::get('success')}}", "success")</script>
 @endif
+<script>
+    AOS.init({
+        duration:1200,
+        once:true,
+        offset:0,
+        easing:'ease-in-out-back'
+    });
+</script>
 </body>
 </html>

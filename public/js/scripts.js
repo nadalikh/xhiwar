@@ -1,9 +1,4 @@
-    AOS.init({
-        duration:1200,
-        once:true,
-        offset:0,
-        easing:'ease-in-out-back'
-    });
+
 
 function myFunction() {
   var x = document.getElementById("my-nav");
