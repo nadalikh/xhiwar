@@ -6,11 +6,12 @@
     <link rel="icon" href='site_images/logo_n.jpeg' type="image/gif" >
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-    <script src="{{asset('js/scripts.js')}}"></script>
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="{{asset('js/scripts.js')}}"></script>
+
     <link type="text/css" rel="stylesheet" href="{{asset("css/ccc.css")}}">
     <title>فروشگاه انلاین ژیوار</title>
 </head>
