@@ -40,6 +40,7 @@ class routeController extends Controller
         return view('admin.add', compact("categories"));
     }
     public function showProduct($productId){
+        $basketCount = null;
         if(Auth::check())
             $basketCount = sizeof(basket::whereUserId(Auth::user()->id)->get());
         $categories = category::all();
@@ -48,6 +49,7 @@ class routeController extends Controller
         return view('product', compact('product', 'category','categories', 'basketCount'));
     }
     public function baskets(){
+        $basketCount = null;
         if(Auth::check())
             $basketCount = sizeof(basket::whereUserId(Auth::user()->id)->get());
         $categories = category::all();
