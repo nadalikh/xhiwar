@@ -47,7 +47,7 @@ class userController extends Controller
     public function register(Request $request){
         $validator = Validator::make($request->toArray(),$this->registerRule, $this->registerMessage);
         if($validator->fails())
-            return redirect('signing_form')->withErrors($validator);
+            return redirect('signing_form')->withErrrors($validator);
         $user = new User();
         $user->name = $request->name;
         $user->password = Hash::make($request->password);

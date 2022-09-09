@@ -27,7 +27,7 @@ class routeController extends Controller
         return view('admin.layout.master');
     }
     public function signing_form(Request $request){
-        $email =($request->email)? $request->only('email')['email']:"";
+        $email =($request->email) ? $request->only('email')['email']:"";
         $basketCount = null;
         if(Auth::check())
             $basketCount = sizeof(basket::whereUserId(Auth::user()->id)->get());

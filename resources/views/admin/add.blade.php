@@ -15,7 +15,7 @@
             <input type="text" class="form-control" name="country_manufacturer" id="country_manufacturer" placeholder="">
         </div>
         <div class="mb-5">
-            <label for="price" class="form-label text-white">قیمت(ریال)</label>
+            <label for="price" class="form-label text-white">قیمت(تومان)</label>
             <input type="number" class="form-control" name="price" id="price" value="1000">
         </div>
         <div class="form-check form-switch mb-5">
