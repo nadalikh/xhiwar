@@ -14,9 +14,10 @@
 <body style="height: 100vh">
 <div class="ms-container w-100 h-100">
     <nav>
-        <a href='{{route("admin.root")}}'>مدیریت</a>
+        <a href='{{route("root")}}'>خانه</a>
         <a href="{{route('admin.addProduct')}}">اضافه کردن محصول</a>
         <a href="{{route('admin.manageUser')}}">مدیریت کاربران</a>
+        <a href="{{route('admin.transactions')}}">تراکنش ها</a>
 
     </nav>
     <main id='main'>

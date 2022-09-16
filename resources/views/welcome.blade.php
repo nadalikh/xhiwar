@@ -115,5 +115,14 @@
 </footer>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
+@if(isset($shouldBeScrolled))
+<script>
+    $(document).ready(function(){
+        window.scroll({
+            top: 1400,
+            behavior: 'smooth'
+        });
+    });
+</script>
+@endif
 @endsection

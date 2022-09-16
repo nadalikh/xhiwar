@@ -527,7 +527,7 @@ main{
     grid-column-gap: 2%;
     width: 100%;
     border:2px solid #58361b;
-    background-image:url("site_images/wallpaper.jpg");
+    background-image:url("../site_images/wallpaper.jpg");
     border-radius: 5px;
     height: 145vh;
     overflow-y: scroll;

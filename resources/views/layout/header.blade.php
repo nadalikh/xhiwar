@@ -35,10 +35,13 @@
         @if(auth()->check())
             <p style="font-size:11px; margin:0; padding: 0;">{{auth()->user()->email}}</p>
         @endif
-        <button class="d-d-b"> <i style="font-size: 20px;" class="fa fa-user"></i></button>
+        <button class="d-d-b" > <i style="font-size: 20px; " class="fa fa-user"></i></button>
         <i class="fa fa-angle-down"></i>
-        <div class="d-d-c">
-            <a href="#login" onclick="open_form()">ورود/خروج</a>
+        <div class="d-d-c" style="@if(auth()->check())  {{'bottom:-190px;'}} @endif">
+            <a href="#login" onclick="open_form()">ورود</a>
+            @if(auth()->check())
+                <a href="{{route('logout')}}">خروج </a>
+            @endif
             <a href="{{route('signing_form')}}">ثبت نام</a>
             <a href="{{route('myOrders')}}">سفارش های من</a>
         </div>
@@ -84,9 +87,6 @@
             <input type="password" id="pe" name="password">
         </div>
         <input type="submit" name="l-submit" value="ورود">
-        @if(auth()->check())
-            <a href="{{route('logout')}}">خروج از حساب کاربری</a>
-        @endif
         {{--        <a href='signin.php?forgot=true'>رمزم را فراموش کردم</a>--}}
     </form>
 </div>

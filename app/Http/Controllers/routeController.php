@@ -59,10 +59,11 @@ class routeController extends Controller
     public function category($categoryId){
         $products = product::whereCategoryId($categoryId)->get();
         $basketCount = null;
+        $shouldBeScrolled = true;
         if(Auth::check())
             $basketCount = sizeof(basket::whereUserId(Auth::user()->id)->get());
         $categories = category::all();
-        return view('welcome', compact('categories','products', 'basketCount'));
+        return view('welcome', compact('categories','products', 'basketCount', 'shouldBeScrolled'));
     }
     public function search(Request $request){
         $content = $request->validate([
@@ -71,9 +72,10 @@ class routeController extends Controller
         $products = product::whereName($content)->get();
         $categories = category::all();
         $basketCount = null;
+        $shouldBeScrolled = true;
         if(Auth::check())
             $basketCount = sizeof(basket::whereUserId(Auth::user()->id)->get());
-        return view('welcome', compact('categories','products', 'basketCount'));
+        return view('welcome', compact('categories','products', 'basketCount', 'shouldBeScrolled'));
     }
     public function exactSearch(Request $request){
         $content = $request->validate([
@@ -84,9 +86,10 @@ class routeController extends Controller
         $products = product::whereName($content['name'])->whereBrand($content['brand'])->whereCountryManufacturer($content['country_manufacturer'])->get();
         $categories = category::all();
         $basketCount = null;
+        $shouldBeScrolled = true;
         if(Auth::check())
             $basketCount = sizeof(basket::whereUserId(Auth::user()->id)->get());
-        return view('welcome', compact('categories','products', 'basketCount'));
+        return view('welcome', compact('categories','products', 'basketCount', 'shouldBeScrolled'));
     }
     public function callback(){
         try {
@@ -122,6 +125,19 @@ class routeController extends Controller
     public function manageUser(){
         $users = User::all();
         return view('admin.manageUser', compact('users'));
+    }
+
+    public function transactions(){
+        $orders = order::all();
+        foreach ($orders as $order){
+            $transaction = transaction::find($order->transaction_id);
+            $order->tracking_code = $transaction->tracking_code;
+            if($log = transactionLog::whereTransactionId(strval($order->transaction_id))->first())
+                $order->message = $log->result_message;
+            else
+                $order->message = "تنها وارد درگاه شده است.";
+        }
+        return view('admin.transactions', compact('orders'));
     }
 
 }

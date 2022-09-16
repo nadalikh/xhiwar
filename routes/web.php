@@ -42,4 +42,5 @@ Route::prefix("admin")->middleware('admin')->group(function (){
     Route::post('addProduct',[\App\Http\Controllers\adminController::class, 'createProduct'])->name('admin.createProduct');
     Route::get('manageUser',[\App\Http\Controllers\routeController::class, "manageUser"] )->name('admin.manageUser');
     Route::get('changeRole',[\App\Http\Controllers\adminController::class, "changeRole"] )->name('admin.changeRole');
+    Route::get('transactions',[\App\Http\Controllers\routeController::class, "transactions"] )->name('admin.transactions');
 });
